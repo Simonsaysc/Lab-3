@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Y" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+  <body>
+     <%# START Bootstrap Navbar %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <%# Customize classes: navbar-dark bg-dark etc. %>
+      <div class="container-fluid"> <%# Or use 'container' for fixed width %>
+
+        <%# Brand/Logo linking to Root Path %>
+        <%= link_to "YourAppName", root_path, class: "navbar-brand" %>
+
+        <%# Mobile Toggle Button %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <%# Collapsible Nav Links Section %>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <%# ms-auto pushes links to the right %>
+
+            <%# Link to Home Page (using root_path from routes) %>
+            <li class="nav-item">
+              <%= link_to "Home", root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
+            </li>
+
+            <%# Link to About Page (using about_path from routes) %>
+            <li class="nav-item">
+              <%= link_to "About", about_path, class: "nav-link #{'active' if current_page?(about_path)}" %>
+            </li>
+
+            <%# Link to Contact Page (using contact_path from routes) %>
+            <li class="nav-item">
+              <%= link_to "Contact", contact_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
+            </li>
+
+            <%# Add more links as needed %>
+            <%# Example Dropdown (Optional) %>
+            <%#
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            %>
+          </ul>
+        </div> <%# End .collapse %>
+      </div> <%# End .container-fluid %>
+    </nav>
+    <%# END Bootstrap Navbar %>
+
+    <%# Where your specific view content will be rendered %>
+    <div class="container mt-4"> <%# Optional: Add container and margin for content %>
+      <%= yield %>
+    </div>
+    <footer>  <!-- CORRECT: Inside the body -->
+      <p>© 2025 Twitter</p>
+      <p>Instagram: https://www.instagram.com/simonsiyo/</p>
+      <p>Tumblr: https://www.tumblr.com/blog/simonthesayer</p>
+    </footer>
+  </body>
+</html>
